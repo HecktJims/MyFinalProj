@@ -307,16 +307,20 @@
             let data = await response.json();
             let paid = data.fieldDetailDtos.filter(x => x.paymentStatus);
             let unpaid = data.fieldDetailDtos.filter(x => !x.paymentStatus);
+            let reserved = data.scheduleDatailDtos
             let innerHTML = "";
             //scheduleDatailDtos
             console.log('paid', data.scheduleDatailDtos);
-            for (const item of paid) {
+            for (const item of reserved) {
+                let time = parseInt(item.courseStartTime.toString().substring(0, 2))
+                let time1 = `${time}:00`
+                let time2 = `${time + 1}:00`
                 innerHTML += `<tr>
                                     <td class="align-content-center">${item.field}</td>
-                                    <td class="align-content-center">NT${item.payment}</td>
-                                    <td class="align-content-center">${item.courseStartTime}~${item.courseEndTime}</td>
+                                    <td class="align-content-center">NT${item.classPayment}</td>
+                                    <td class="align-content-center">${time1}~${time2}</td>
                                     <td class="align-content-center">${item.courseDate}</td>
-                                    <td class="align-content-center">${item.city} ${item.region} ${item.gym} ${item.floor}</td>
+                                    <td class="align-content-center">${item.gymName} ${item.field}</td>
                                     <td class="align-content-center"><button type="button" class="btn btn-success">已付款</button></td>
                                 </tr>`
             };
